@@ -99,4 +99,5 @@ Une fois l'appliction télécharger, pour mettre en place :
    
    `py manage.py createsuperuser`
    
-   Utiliser ensuite ces identifiants pour utiliser la plateforme front-end. (endpoint: /admin/)
+   Utiliser ensuite ces identifiants pour utiliser la plateforme front-end (endpoint: /admin/) ou tester les 
+   différents endpoints.

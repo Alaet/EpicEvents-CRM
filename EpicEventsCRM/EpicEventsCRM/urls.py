@@ -17,9 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-"""from client.views import ClientViewSet
+from client.views import ClientViewSet
 from contract.views import ContractViewSet
-from event.views import EventViewSet"""
+from event.views import EventViewSet
 
 # Uncomment this function and path below in urlpatterns List, to generate a sentry error and visualize it. See Sentry
 # dsn in settings.
@@ -27,13 +27,13 @@ from event.views import EventViewSet"""
     division_by_zero = 1 / 0"""
 
 
-"""router = routers.SimpleRouter()
+router = routers.SimpleRouter()
 router.register('clients', ClientViewSet, basename='clients')
 router.register('contracts', ContractViewSet, basename='contracts')
-router.register('events', EventViewSet, basename='events')"""
+router.register('events', EventViewSet, basename='events')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', include(router.urls)),
+    path('', include(router.urls)),
     # path('sentry-debug/', trigger_error),
 ]

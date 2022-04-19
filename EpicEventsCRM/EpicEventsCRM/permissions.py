@@ -1,4 +1,4 @@
-"""from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import BasePermission
@@ -36,6 +36,9 @@ class IsStaff(BasePermission):
 
 
 class IsMainContact(BasePermission):
+    """
+    Check if request.user is creator of an object, based on obj type
+    """
     try:
         support_group = Group.objects.get(name="SupportTeam")
     except ObjectDoesNotExist:
@@ -54,6 +57,10 @@ class IsMainContact(BasePermission):
             return True
 
     def has_object_permission(self, request, view, obj):
+        """
+        Grant permissions base on type object in params and request user relation/group to obj
+        :return: bool
+        """
         sales_group = Group.objects.get(name="SalesTeam")
         if isinstance(obj, Client) or isinstance(obj, Contract):
             if request.user.id == obj.sales_contact.id or request.user.is_superuser:
@@ -72,4 +79,3 @@ class IsMainContact(BasePermission):
                 return True
             raise ValidationError("Seul l'utilisateur responsable de l'évènement (%s) peut le modifier" %
                                   obj.support_contact)
-"""

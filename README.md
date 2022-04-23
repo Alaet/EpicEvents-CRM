@@ -64,7 +64,7 @@ Une fois l'appliction télécharger, pour mettre en place :
    `venv\Scripts\activate`
 
 
-4. Installer les bibliothèques nécessaires depuis le répertoire "EpicEventsCRM":
+4. Installer les bibliothèques nécessaires ai niveau du répertoire "EpicEventsCRM":
 
    `pip install -r requirements.txt`
 

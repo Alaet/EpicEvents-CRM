@@ -73,7 +73,7 @@ Une fois l'appliction télécharger, pour mettre en place :
    DATABASES = {
       'default': {
            'ENGINE': 'django.db.backends.postgresql',
-           'NAME': 'your_db_name',
+           'NAME': 'your_db_name', # TestingDB by default in this project
            'USER': 'your_postgres_user',
            'PASSWORD': 'your_password',
            'HOST': 'localhost',

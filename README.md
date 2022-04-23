@@ -85,18 +85,25 @@ Une fois l'appliction télécharger, pour mettre en place :
 6. Lancer le serveur Django:
    - Pour initialiser une base de donnée :
    
+       #### L'ORDRE DES MIGRATIONS EST IMPORTANT 
+       #### POUR LE DEPLOIEMENT DES GROUPES/DROITS
 
       `py manage.py migrate client` 
+
       `py manage.py migrate contract` 
-      `py manage.py migrate authentication` 
+
       `py manage.py migrate event`
+
+      `py manage.py migrate authentication` 
+
       `py manage.py migrate`
-       # L'ORDRE DES MIGRATIONS EST IMPORTANT
-       # POUR LE DEPLOIEMENT DES GROUPES
+
       `py manage.py runserver` 
+
 
 7. Créer un administrateur:
    
    `py manage.py createsuperuser`
    
-   Utiliser ensuite ces identifiants pour utiliser la plateforme front-end. (endpoint: /admin/)
+   Utiliser ensuite ces identifiants pour utiliser la plateforme front-end (endpoint: /admin/) ou tester les 
+   différents endpoints.

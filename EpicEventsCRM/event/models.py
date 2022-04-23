@@ -2,7 +2,7 @@ from django.db.models import Model, CASCADE, ForeignKey, DateTimeField, CharFiel
     IntegerField, TextField, OneToOneField
 
 from client.models import Client
-# from authentication.models import User
+from authentication.models import User
 from contract.models import Contract
 
 
@@ -16,8 +16,8 @@ class Event(Model):
     client = ForeignKey(Client, on_delete=CASCADE, related_name='client_event')
     date_created = DateTimeField(auto_now_add=True, null=True)
     date_updated = DateTimeField(auto_now=True)
-    # support_contact = ForeignKey(User, limit_choices_to={'groups__name': 'SupportTeam'}, on_delete=SET_NULL,
-      #                            related_name='support_contact', null=True)
+    support_contact = ForeignKey(User, limit_choices_to={'groups__name': 'SupportTeam'}, on_delete=SET_NULL,
+                                 related_name='support_contact', null=True)
     event_status = CharField(max_length=50, choices=choices, default='UPC')
     attendees = IntegerField()
     event_date = DateField()

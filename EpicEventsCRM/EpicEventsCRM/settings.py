@@ -84,7 +84,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
 
-        'NAME': 'TestingDB',
+        'NAME': 'NewDB',
 
         'USER': 'postgres',
 

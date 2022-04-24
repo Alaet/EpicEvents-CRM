@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.auth.models import Group
 
 from contract.models import Contract
 from .models import Client
@@ -18,8 +17,7 @@ class ClientAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         user = request.user
-        sales_group = Group.objects.get(name='SalesTeam')
-        if request.user.groups == sales_group or request.user .is_superuser:
+        if request.user.team == 'sales' or request.user .is_superuser:
             obj.sales_contact = user
             obj.save()
 
@@ -35,9 +33,9 @@ class ClientAdmin(admin.ModelAdmin):
         queryset = super(ClientAdmin, self).get_queryset(request)
         if request.user.is_superuser:
             return queryset
-        elif request.user.groups == Group.objects.get(name='SalesTeam'):
+        elif request.user.team == 'sales':
             return queryset.filter(sales_contact=request.user)
-        elif request.user.groups == Group.objects.get(name='SupportTeam'):
+        elif request.user.team == 'support':
             return queryset.filter(client_event__support_contact=request.user)
 
 

@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.auth.models import Group
 
 from client.models import Client
 from event.models import Event
@@ -27,8 +26,8 @@ class ContractAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         user = request.user
-        sales_group = Group.objects.get(name='SalesTeam')
-        if request.user.groups == sales_group or request.user .is_superuser:
+        sales_group = 'sales'
+        if request.user.team == sales_group or request.user .is_superuser:
             obj.sales_contact = user
             obj.save()
 

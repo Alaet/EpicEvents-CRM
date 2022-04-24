@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.auth.models import Group
 
 from client.models import Client
 from contract.models import Contract
@@ -12,14 +11,14 @@ class EventAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, change=False, **kwargs):
         current_user = request.user
-        if current_user.groups == Group.objects.get(name="SupportTeam"):
+        if current_user.team == 'support':
             self.exclude = ('client', 'support_contact',)
             self.list_display = ("id", "event_status", "event_date",)
         form = super(EventAdmin, self).get_form(request, obj, **kwargs)
-        if current_user.groups != Group.objects.get(name="SupportTeam"):
+        if current_user.team != 'support':
             form.base_fields['client'].queryset = Client.objects.filter(sales_contact=current_user.id)
             form.base_fields['contract'].queryset = Contract.objects.filter(sales_contact=current_user.id)
-        if current_user.groups == Group.objects.get(name="SupportTeam"):
+        if current_user.team == 'support':
             form.base_fields['contract'].queryset = Contract.objects.filter(
                 contract_event__support_contact=current_user.id)
         if current_user.is_superuser:
@@ -40,9 +39,9 @@ class EventAdmin(admin.ModelAdmin):
         queryset = super(EventAdmin, self).get_queryset(request)
         if request.user.is_superuser:
             return queryset
-        elif request.user.groups == Group.objects.get(name='SalesTeam'):
+        elif request.user.team == 'sales':
             return queryset.filter(contract__sales_contact=request.user)
-        elif request.user.groups == Group.objects.get(name='SupportTeam'):
+        elif request.user.team == 'support':
             return queryset.filter(support_contact=request.user)
 
 

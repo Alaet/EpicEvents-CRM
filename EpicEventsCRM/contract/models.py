@@ -7,7 +7,7 @@ from client.models import Client
 
 class Contract(Model):
 
-    sales_contact = ForeignKey(User, limit_choices_to={'groups__name': 'SalesTeam'}, on_delete=SET_NULL,
+    sales_contact = ForeignKey(User, limit_choices_to={'team': 'sales'}, on_delete=SET_NULL,
                                related_name='sales_contact_contract', null=True)
     client = ForeignKey(Client, on_delete=SET_NULL, related_name='client_contract', null=True)
     date_created = DateTimeField(auto_now_add=True, null=True)

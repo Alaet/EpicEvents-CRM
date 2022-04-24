@@ -14,7 +14,7 @@ class Client(Model):
     company_name = CharField(max_length=250, unique=True, null=True)
     date_created = DateTimeField(auto_now_add=True, null=True)
     date_updated = DateTimeField(auto_now=True)
-    sales_contact = ForeignKey(User, limit_choices_to={'groups__name': 'SalesTeam'}, on_delete=SET_NULL,
+    sales_contact = ForeignKey(User, limit_choices_to={'team': 'sales'}, on_delete=SET_NULL,
                                related_name='sales_contact', null=True)
     prospect = BooleanField(default=True)
 

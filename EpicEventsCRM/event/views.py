@@ -1,5 +1,3 @@
-from django.contrib.auth.models import Group
-
 from rest_framework import filters
 from rest_framework.exceptions import NotFound
 from rest_framework.viewsets import ModelViewSet
@@ -16,9 +14,9 @@ class EventViewSet(ModelViewSet):
     filter_backends = (filters.SearchFilter,)
 
     def get_queryset(self):
-        sales_team = Group.objects.get(name="SalesTeam")
+        sales_team = 'sales'
         events = Event.objects.filter(support_contact=self.request.user.id)
-        if self.request.user.groups == sales_team:
+        if self.request.user.team == sales_team:
             return Event.objects.filter(contract__sales_contact=self.request.user.id)
         elif self.request.user.is_superuser:
             return Event.objects.all()

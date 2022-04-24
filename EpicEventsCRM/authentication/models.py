@@ -1,6 +1,11 @@
-from django.contrib.auth.models import AbstractUser, Group
-from django.db.models import ForeignKey, SET_NULL
+from django.contrib.auth.models import AbstractUser
+from django.db.models import CharField
 
 
 class User(AbstractUser):
-    groups = ForeignKey(Group, related_name='user_role', on_delete=SET_NULL, null=True)
+    choices = (
+        ('sales', 'Sales'),
+        ('support', 'Support'),
+    )
+
+    team = CharField(max_length=50, choices=choices)
